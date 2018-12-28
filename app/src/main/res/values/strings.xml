@@ -8,4 +8,9 @@
     <string name="todo_go_movie_details">TODO: Movie %1$d was selected, open movie details</string>
     <string name="placeholder_genre_list">Action, Adventure</string>
     <string name="placeholder_movie_release_date">2019-01-01</string>
+    <string name="placeholder_movie_overview">Set in a world many thousands of years in the future. Earth’s cities now
+        roam the globe on huge wheels, devouring each other in a struggle for ever diminishing resources. On one of
+        these massive Traction Cities, Tom Natsworthy has an unexpected encounter with a mysterious young woman from the
+        Outlands who will change the course of his life forever.
+    </string>
 </resources>

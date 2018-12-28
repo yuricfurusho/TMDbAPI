@@ -2,26 +2,27 @@ package com.yuricfurusho.tmdbapi.ui.movielist
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.*
-import android.widget.Toast
 import com.yuricfurusho.model.MovieResult
+import com.yuricfurusho.tmdbapi.MovieDetailActivity
 import com.yuricfurusho.tmdbapi.R
 import kotlinx.android.synthetic.main.movie_list_fragment.*
 
 class MovieListFragment : Fragment(), MovieAdapter.MovieListAdapterListener {
     lateinit var mMovieAdapter: MovieAdapter
+    private lateinit var mMovieList: List<MovieResult>
 
     override fun onItemClick(view: View, position: Int) {
-        Toast.makeText(
-            view.context,
-            resources.getString(R.string.todo_go_movie_details, position + 1),
-            Toast.LENGTH_SHORT
-        ).show()
+        val intent = Intent(context, MovieDetailActivity::class.java).apply {
+            putExtra(MovieResult::class.java.simpleName, mMovieList[position])
+        }
+        startActivity(intent)
     }
 
     companion object {
@@ -79,6 +80,7 @@ class MovieListFragment : Fragment(), MovieAdapter.MovieListAdapterListener {
 
         viewModel.getMovieList().observe(this, Observer<List<MovieResult>> { movieList ->
             movieList?.let {
+                mMovieList = movieList
                 mMovieAdapter.setList(movieList)
             }
         })

@@ -1,6 +1,7 @@
 package com.yuricfurusho.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class MovieResult(
     val adult: Boolean = false,
@@ -25,4 +26,4 @@ data class MovieResult(
     val voteAverage: Int = 0,
     @SerializedName("vote_count")
     val voteCount: Int = 0
-)
+) : Serializable
