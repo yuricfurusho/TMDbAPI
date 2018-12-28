@@ -84,7 +84,7 @@ class MovieListViewModel : ViewModel() {
     }
 
     fun setResponse(upcomingResult: UpcomingResult?) {
-        mMovieList.value = upcomingResult?.results ?: mutableListOf<MovieResult>()
+        mMovieList.value = upcomingResult?.results?.sortedByDescending { it.releaseDate } ?: mutableListOf<MovieResult>()
         loading.value = false
         mOriginalMovieList.clear()
         mOriginalMovieList.addAll(mMovieList.value ?: mutableListOf<MovieResult>())
@@ -132,14 +132,15 @@ class MovieListViewModel : ViewModel() {
         loading.value = false
     }
 
-    fun setResponseNextPage(storiesPage: UpcomingResult?) {
-        val storyList = mutableListOf<MovieResult>()
+    fun setResponseNextPage(upcomingResult: UpcomingResult?) {
+        val mergedMovieList = mutableListOf<MovieResult>()
 
-        val list: List<MovieResult>? = mMovieList.value
-        list?.let { storyList.addAll(list) }
-        storiesPage?.results?.let { storyList.addAll(it) }
+        val currentMovieList: List<MovieResult>? = mMovieList.value
+        currentMovieList?.let { mergedMovieList.addAll(currentMovieList) }
+        upcomingResult?.results?.let { newPageMovieList -> mergedMovieList.addAll(newPageMovieList) }
+        mergedMovieList.sortByDescending { it.releaseDate }
 
-        mMovieList.value = storyList
+        mMovieList.value = mergedMovieList
         loading.value = false
         mOriginalMovieList.clear()
         mOriginalMovieList.addAll(mMovieList.value ?: mutableListOf<MovieResult>())

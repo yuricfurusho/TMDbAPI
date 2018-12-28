@@ -41,8 +41,8 @@ class MovieListRepository(private val viewModel: MovieListViewModel) {
         val disposable = observableStoriesPage.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { storiesPage: UpcomingResult? ->
-                    viewModel.setResponseNextPage(storiesPage)
+                { upcomingResult: UpcomingResult? ->
+                    viewModel.setResponseNextPage(upcomingResult)
                 },
                 { t: Throwable? ->
                     viewModel.setErrorResponse(t)
