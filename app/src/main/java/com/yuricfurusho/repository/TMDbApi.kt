@@ -2,6 +2,7 @@ package com.yuricfurusho.repository
 
 import android.util.Log
 import com.yuricfurusho.model.UpcomingResult
+import com.yuricfurusho.tmdbapi.BuildConfig
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -41,7 +42,6 @@ interface TMDbApi {
     ): Observable<Any>
 
     companion object {
-        private const val BASE_URL = "https://api.themoviedb.org/"
 
         fun create(): TMDbApi {
             val logger = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger {
@@ -53,7 +53,7 @@ interface TMDbApi {
                 .addInterceptor(logger)
                 .build()
             return Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(BuildConfig.API_BASE_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())

@@ -3,7 +3,8 @@ package com.yuricfurusho.tmdbapi
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.yuricfurusho.Contants
+import com.yuricfurusho.Contants.BASE_URL_IMAGES
+import com.yuricfurusho.Contants.SIZE_POSTER_SIZE_W154
 import com.yuricfurusho.GenreUtils
 import com.yuricfurusho.model.MovieResult
 import kotlinx.android.synthetic.main.activity_movie_detail.*
@@ -28,7 +29,7 @@ class MovieDetailActivity : AppCompatActivity() {
         textView_releaseDate.text = movie.releaseDate
         textView_overview.text = movie.overview
         Glide.with(imageView_moviePoster)
-            .load(Contants.BASE_URL_IMAGES + Contants.SIZE_POSTER_SIZE_W154 + movie.posterPath)
+            .load(BASE_URL_IMAGES + SIZE_POSTER_SIZE_W154 + movie.posterPath)
             .into(imageView_moviePoster)
     }
 }

@@ -4,7 +4,7 @@ package com.yuricfurusho
  * Created by Yuri Furusho on 28/12/18.
  */
 object GenreUtils {
-    // todo GET from remote
+    // TODO GET from remote
     fun getGenreById(id : Int) : String {
         return when (id) {
             28 -> "Action"

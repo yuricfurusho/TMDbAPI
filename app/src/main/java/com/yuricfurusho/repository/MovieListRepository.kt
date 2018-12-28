@@ -1,5 +1,6 @@
 package com.yuricfurusho.repository
 
+import com.yuricfurusho.Contants.API_KEY
 import com.yuricfurusho.model.UpcomingResult
 import com.yuricfurusho.tmdbapi.ui.movielist.MovieListViewModel
 import io.reactivex.Observable
@@ -17,7 +18,7 @@ class MovieListRepository(private val viewModel: MovieListViewModel) {
         val tmDbApi: TMDbApi = TMDbApi.create()
 
         val observableUpcomingResult: Observable<UpcomingResult> =
-            tmDbApi.listUpcoming("64fa9be13bf6b3169a8d24ca58791604", "en-US", page)
+            tmDbApi.listUpcoming(API_KEY, "en-US", page)
 
         val disposable = observableUpcomingResult.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -36,7 +37,7 @@ class MovieListRepository(private val viewModel: MovieListViewModel) {
         val wattpadApi: TMDbApi = TMDbApi.create()
 
         val observableStoriesPage: Observable<UpcomingResult> =
-            wattpadApi.listUpcoming("64fa9be13bf6b3169a8d24ca58791604", "en-US", ++page)
+            wattpadApi.listUpcoming(API_KEY, "en-US", ++page)
 
         val disposable = observableStoriesPage.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

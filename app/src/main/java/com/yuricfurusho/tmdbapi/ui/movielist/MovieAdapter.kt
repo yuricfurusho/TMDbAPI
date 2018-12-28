@@ -35,9 +35,7 @@ class MovieAdapter(
     override fun onBindViewHolder(holder: MovieListViewHolder, position: Int) {
         val movieResult = mListMovie[position]
         holder.mMovieTitle.text = movieResult.title
-        val listOfGenresString : List<String>  = movieResult.genreIds.map { GenreUtils.getGenreById(it) } //joinToString(", ")
-        holder.mGenreList.text = listOfGenresString.joinToString(", ")
-//        holder.mGenreList.text = movieResult.genreIds.map { GenreUtils.getGenreById(it) }.joinToString(", ")
+        holder.mGenreList.text = movieResult.genreIds.map { GenreUtils.getGenreById(it) }.joinToString(", ")
         holder.mReleaseDate.text = movieResult.releaseDate
         Glide.with(holder.mImgMoviePoster).load(BASE_URL_IMAGES + SIZE_POSTER_SIZE_W154 + movieResult.posterPath)
             .into(holder.mImgMoviePoster)

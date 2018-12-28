@@ -146,7 +146,7 @@ class MovieListViewModel : ViewModel() {
         mOriginalMovieList.addAll(mMovieList.value ?: mutableListOf<MovieResult>())
     }
 
-    // improve to remote search
+    // TODO improve to remote search
     fun filterMovieList(query: String) {
         val filteredList: List<MovieResult>? = if (query.isEmpty())
             mOriginalMovieList
