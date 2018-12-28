@@ -1,8 +1,8 @@
-package com.yuricfurusho.tmdbapi
+package com.yuricfurusho.tmdbapi.ui.movielist
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.yuricfurusho.tmdbapi.ui.movielist.MovieListFragment
+import android.support.v7.app.AppCompatActivity
+import com.yuricfurusho.tmdbapi.R
 
 class MovieListActivity : AppCompatActivity() {
 
