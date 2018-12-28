@@ -7,6 +7,8 @@ Android App that lists upcoming movie from the TMDb API
 The app is built with MVVVM architecture and rxAndroid. It uses Retrofit Library for http requests and Glide Library for image downloading and display.
 
 ## Features
+- Uses ViewModel architecture component
+- Uses Observer and Livedata to display updated information on screen
 - loads next page when reaching bottom
 - Menu option to change environment between DUMMY and REMOTE
 - Glide implementation to load images from remote
@@ -22,39 +24,15 @@ The app is built with MVVVM architecture and rxAndroid. It uses Retrofit Library
 - Checkout "development" branch
 - Run build type "debug"
 
-## List of third­party libraries used and short description of why/how they were used
-- android.arch.lifecycle:extensions:1.1.1'
-  - Used ViewModel, Observer and LiveData
-- implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-  - Used to work with kotlin language
-- com.android.support:appcompat-v7:28.0.0'
-  - Used for searchView components, fragments and many other components back supported 
-- com.android.support.constraint:constraint-layout:1.1.3'
-  - Used to build each layout as it is the most recommended way to organize layout files.
-- com.android.support:recyclerview-v7:28.0.0'
-  - Used to display list of upcoming movies
-- com.github.bumptech.glide:glide:4.8.0'
-  - Used to display images given url address os movie posters
-- com.squareup.okhttp3:logging-interceptor:3.11.0'
-  - Used for logging http requests and responses
-- com.squareup.retrofit2:adapter-rxjava2:2.4.0'
-  - Used for providing http responses back to requestor
-- com.squareup.retrofit2:converter-gson:2.4.0'
-  - Used for deserializing JSON files into objects 
-- com.squareup.retrofit2:retrofit:2.4.0'
-  - Used for making http requests
-- io.reactivex.rxjava2:rxandroid:2.1.0'
-  - Used for providing http responses back to requestor
-- io.reactivex.rxjava2:rxjava:2.2.3'
-  - Used for providing http responses back to requestor
-- io.reactivex.rxjava2:rxkotlin:2.2.0'
-  - Used for providing http responses back to requestor
-- junit:junit:4.12'
-  - Used for testing
-- com.android.support.test:runner:1.0.2'
-  - Used for testing
-- com.android.support.test.espresso:espresso-core:3.0.2'
-  - Used for testing
+## Third Party Libraries/Dependencies
+* [Glide](https://github.com/bumptech/glide) for downloading, caching and displaying movie posters images given their url address
+* [Retrofit2 Gson Converter](https://github.com/square/retrofit/tree/master/retrofit-converters/gson) for deserializing JSON files into objects 
+* [Retrofit2 Logging Interceptor](https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor)
+  for intercepting and logging all request and response made using retrofit 
+* [Retrofit2 RxJava2 Adapter](https://github.com/square/retrofit/tree/master/retrofit-adapters/rxjava2) Used for providing http responses back to requestor in a reactive manner
+* [RxAndroid: Reactive Extensions for Android](https://github.com/ReactiveX/RxAndroid) Android specific bindings for RxJava 2
+* [RxJava: Reactive Extensions for the JVM](https://github.com/ReactiveX/RxJava) Java VM implementation of Reactive Extensions
+* [RxKotlin: Kotlin Extensions for RxJava](https://github.com/ReactiveX/RxKotlin) adds convenient extension functions to RxJava
   
 ## Limitations/Known issues
 - Genres names are statically implemented and should be queried from TMDb API in future releases
