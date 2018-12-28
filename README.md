@@ -1,4 +1,9 @@
 # TMDbAPI
+## Summary
+Android App that lists Upcoming movie titles from the TMDb API
+
+## Architecture
+The app is built with MVVVM architecture and rxAndroid. It uses Retrofit Library for http requests and Glide Library for image download display.
 
 ## Build Instructions
 - Checkout "development" branch
@@ -37,3 +42,9 @@
   - Used for testing
 - com.android.support.test.espresso:espresso-core:3.0.2'
   - Used for testing
+  
+## Limitations/Known issues
+- Genres names are statically implemented and should be queried from TMDb API in future releases
+- Image's format URL are statically implemented and should be queried from TMDb API in future releases
+- Search feature only ilter local results but should be able to query remote in future releases
+
