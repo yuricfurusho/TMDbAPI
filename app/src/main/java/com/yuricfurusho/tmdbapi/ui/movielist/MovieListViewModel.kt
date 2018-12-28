@@ -15,7 +15,7 @@ class MovieListViewModel : ViewModel() {
     private lateinit var environment: MutableLiveData<ENVIRONMENT>
     private lateinit var loading: MutableLiveData<Boolean>
     private lateinit var mMovieList: MutableLiveData<List<MovieResult>>
-    var mOriginalMovieList: MutableList<MovieResult> = mutableListOf()
+    private var mOriginalMovieList: MutableList<MovieResult> = mutableListOf()
     private val repository = MovieListRepository(this)
 
 
@@ -76,7 +76,7 @@ class MovieListViewModel : ViewModel() {
         mMovieList.value = movieList
         loading.value = false
         mOriginalMovieList.clear()
-        mOriginalMovieList.addAll(mMovieList.value ?: mutableListOf<MovieResult>())
+        mOriginalMovieList.addAll(mMovieList.value ?: mutableListOf())
     }
 
     private fun loadMovieListFromRemote() {
@@ -84,10 +84,10 @@ class MovieListViewModel : ViewModel() {
     }
 
     fun setResponse(upcomingResult: UpcomingResult?) {
-        mMovieList.value = upcomingResult?.results?.sortedByDescending { it.releaseDate } ?: mutableListOf<MovieResult>()
+        mMovieList.value = upcomingResult?.results?.sortedByDescending { it.releaseDate } ?: mutableListOf()
         loading.value = false
         mOriginalMovieList.clear()
-        mOriginalMovieList.addAll(mMovieList.value ?: mutableListOf<MovieResult>())
+        mOriginalMovieList.addAll(mMovieList.value ?: mutableListOf())
     }
 
     fun loadNextPage() {
@@ -120,7 +120,7 @@ class MovieListViewModel : ViewModel() {
         loading.value = false
 
         mOriginalMovieList.clear()
-        mOriginalMovieList.addAll(mMovieList.value ?: mutableListOf<MovieResult>())
+        mOriginalMovieList.addAll(mMovieList.value ?: mutableListOf())
     }
 
     private fun loadNextPageMovieListFromRemote() {
@@ -143,7 +143,7 @@ class MovieListViewModel : ViewModel() {
         mMovieList.value = mergedMovieList
         loading.value = false
         mOriginalMovieList.clear()
-        mOriginalMovieList.addAll(mMovieList.value ?: mutableListOf<MovieResult>())
+        mOriginalMovieList.addAll(mMovieList.value ?: mutableListOf())
     }
 
     // TODO improve to remote search

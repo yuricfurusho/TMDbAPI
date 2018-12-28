@@ -10,7 +10,6 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
@@ -24,22 +23,6 @@ interface TMDbApi {
         @Query("language") language: String,
         @Query("page") page: Int
     ): Observable<UpcomingResult>
-
-    @GET("3/movie/{movie_id}")
-    fun listMovieDetails(
-        @Path("movie_id") movie_id: Long,
-        @Query("api_key") api_key: String,
-        @Query("language") language: String
-    ): Observable<Any>
-
-    @GET("3/search/movie")
-    fun listSearchResults(
-        @Query("api_key") api_key: String,
-        @Query("language") language: String,
-        @Query("query") query: String,
-        @Query("page") page: Int,
-        @Query("include_adult") include_adult: Boolean
-    ): Observable<Any>
 
     companion object {
 

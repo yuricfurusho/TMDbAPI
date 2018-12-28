@@ -1,6 +1,6 @@
 package com.yuricfurusho.repository
 
-import com.yuricfurusho.Contants.API_KEY
+import com.yuricfurusho.Constants.API_KEY
 import com.yuricfurusho.model.UpcomingResult
 import com.yuricfurusho.tmdbapi.ui.movielist.MovieListViewModel
 import io.reactivex.Observable

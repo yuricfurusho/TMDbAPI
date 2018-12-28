@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.yuricfurusho.Contants.BASE_URL_IMAGES
-import com.yuricfurusho.Contants.SIZE_POSTER_SIZE_W154
+import com.yuricfurusho.Constants.BASE_URL_IMAGES
+import com.yuricfurusho.Constants.SIZE_POSTER_SIZE_W154
 import com.yuricfurusho.GenreUtils
 import com.yuricfurusho.model.MovieResult
 import com.yuricfurusho.tmdbapi.R
