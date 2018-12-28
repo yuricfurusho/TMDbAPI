@@ -13,4 +13,6 @@
         these massive Traction Cities, Tom Natsworthy has an unexpected encounter with a mysterious young woman from the
         Outlands who will change the course of his life forever.
     </string>
+    <string name="search_hint">Search Movies</string>
+    <string name="action_search_stories">Search Movies</string>
 </resources>

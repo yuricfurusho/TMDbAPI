@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.SearchView
 import android.view.*
 import com.yuricfurusho.model.MovieResult
 import com.yuricfurusho.tmdbapi.MovieDetailActivity
@@ -17,6 +18,7 @@ import kotlinx.android.synthetic.main.movie_list_fragment.*
 class MovieListFragment : Fragment(), MovieAdapter.MovieListAdapterListener {
     lateinit var mMovieAdapter: MovieAdapter
     private lateinit var mMovieList: List<MovieResult>
+    private var endlessScrollOn: Boolean = true
 
     override fun onItemClick(view: View, position: Int) {
         val intent = Intent(context, MovieDetailActivity::class.java).apply {
@@ -52,10 +54,12 @@ class MovieListFragment : Fragment(), MovieAdapter.MovieListAdapterListener {
 
         recycler_movie_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                val layoutManager = recyclerView.layoutManager as GridLayoutManager
-                val lastPosition = layoutManager.findLastVisibleItemPosition()
-                if (lastPosition == mMovieAdapter.itemCount - 1) {
-                    viewModel.loadNextPage()
+                if (endlessScrollOn) {
+                    val layoutManager = recyclerView.layoutManager as GridLayoutManager
+                    val lastPosition = layoutManager.findLastVisibleItemPosition()
+                    if (lastPosition == mMovieAdapter.itemCount - 1) {
+                        viewModel.loadNextPage()
+                    }
                 }
             }
         })
@@ -88,6 +92,31 @@ class MovieListFragment : Fragment(), MovieAdapter.MovieListAdapterListener {
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.movies_menu, menu)
+
+
+        val menuItem = menu?.findItem(R.id.action_search)
+        val searchView = menuItem?.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let {
+                    endlessScrollOn = query.isEmpty()
+                    viewModel.filterMovieList(it)
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(query: String?): Boolean {
+                query?.let {
+                    endlessScrollOn = query.isEmpty()
+                    viewModel.filterMovieList(it)
+                }
+                return true
+            }
+        })
+        searchView.setOnCloseListener {
+            viewModel.filterMovieList("")
+            true
+        }
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?) {

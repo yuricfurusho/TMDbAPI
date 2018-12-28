@@ -12,6 +12,8 @@ class MovieListViewModel : ViewModel() {
     private lateinit var environment: MutableLiveData<ENVIRONMENT>
     private lateinit var loading: MutableLiveData<Boolean>
     private lateinit var mMovieList: MutableLiveData<List<MovieResult>>
+    var mOriginalMovieList: MutableList<MovieResult> = mutableListOf()
+
 
     fun getLoading(): LiveData<Boolean> {
         if (!::loading.isInitialized) {
@@ -53,10 +55,10 @@ class MovieListViewModel : ViewModel() {
     }
 
     private fun loadDummyMovieList() {
-        val mMovieList = mutableListOf<MovieResult>()
+        val movieList = mutableListOf<MovieResult>()
 
         for (i in 1..100) {
-            mMovieList.add(
+            movieList.add(
                 MovieResult(
                     title = "title-$i",
                     releaseDate = "2019-01-${i % 28 +1}",
@@ -67,14 +69,18 @@ class MovieListViewModel : ViewModel() {
             )
         }
 
-        this.mMovieList.value = mMovieList
+        mMovieList.value = movieList
         loading.value = false
+        mOriginalMovieList.clear()
+        mOriginalMovieList.addAll(mMovieList.value ?: mutableListOf<MovieResult>())
     }
 
     private fun loadMovieListFromRemote() {
         //TODO
         mMovieList.value = mutableListOf<MovieResult>()
         loading.value = false
+        mOriginalMovieList.clear()
+        mOriginalMovieList.addAll(mMovieList.value ?: mutableListOf<MovieResult>())
     }
 
     fun loadNextPage() {
@@ -86,13 +92,13 @@ class MovieListViewModel : ViewModel() {
     }
 
     private fun loadNextPageDummyMovieList() {
-        val mMovieList = mutableListOf<MovieResult>()
+        val movieList = mutableListOf<MovieResult>()
 
-        val list: List<MovieResult>? = this.mMovieList.value
-        list?.let { mMovieList.addAll(list) }
+        val list: List<MovieResult>? = mMovieList.value
+        list?.let { movieList.addAll(list) }
 
-        for (i in mMovieList.size..mMovieList.size + 100) {
-            mMovieList.add(
+        for (i in movieList.size..movieList.size + 100) {
+            movieList.add(
                 MovieResult(
                     title = "title-$i",
                     releaseDate = "2019-01-${i % 28 +1}",
@@ -103,13 +109,32 @@ class MovieListViewModel : ViewModel() {
             )
         }
 
-        this.mMovieList.value = mMovieList
+        this.mMovieList.value = movieList
         loading.value = false
+
+        mOriginalMovieList.clear()
+        mOriginalMovieList.addAll(mMovieList.value ?: mutableListOf<MovieResult>())
     }
 
     private fun loadNextPageMovieListFromRemote() {
         // todo
         mMovieList.value = mutableListOf<MovieResult>()
+        loading.value = false
+        mOriginalMovieList.clear()
+        mOriginalMovieList.addAll(mMovieList.value ?: mutableListOf<MovieResult>())
+    }
+
+    // improve to remote search
+    fun filterMovieList(query: String) {
+        val filteredList: List<MovieResult>? = if (query.isEmpty())
+            mOriginalMovieList
+        else {
+            mOriginalMovieList.filter {
+                it.title.contains(query)
+            }
+        }
+
+        mMovieList.value = filteredList
         loading.value = false
     }
 }
