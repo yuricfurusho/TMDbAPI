@@ -3,7 +3,10 @@ package com.yuricfurusho.tmdbapi.ui.movielist
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.util.Log
 import com.yuricfurusho.model.MovieResult
+import com.yuricfurusho.model.UpcomingResult
+import com.yuricfurusho.repository.MovieListRepository
 import com.yuricfurusho.tmdbapi.ui.movielist.MovieListViewModel.ENVIRONMENT.REMOTE
 
 class MovieListViewModel : ViewModel() {
@@ -13,6 +16,7 @@ class MovieListViewModel : ViewModel() {
     private lateinit var loading: MutableLiveData<Boolean>
     private lateinit var mMovieList: MutableLiveData<List<MovieResult>>
     var mOriginalMovieList: MutableList<MovieResult> = mutableListOf()
+    private val repository = MovieListRepository(this)
 
 
     fun getLoading(): LiveData<Boolean> {
@@ -76,8 +80,11 @@ class MovieListViewModel : ViewModel() {
     }
 
     private fun loadMovieListFromRemote() {
-        //TODO
-        mMovieList.value = mutableListOf<MovieResult>()
+        repository.requestStories()
+    }
+
+    fun setResponse(upcomingResult: UpcomingResult?) {
+        mMovieList.value = upcomingResult?.results ?: mutableListOf<MovieResult>()
         loading.value = false
         mOriginalMovieList.clear()
         mOriginalMovieList.addAll(mMovieList.value ?: mutableListOf<MovieResult>())
@@ -117,8 +124,22 @@ class MovieListViewModel : ViewModel() {
     }
 
     private fun loadNextPageMovieListFromRemote() {
-        // todo
-        mMovieList.value = mutableListOf<MovieResult>()
+        repository.requestStoriesNextPage()
+    }
+
+    fun setErrorResponse(t: Throwable?) {
+        Log.d("onFailure", "t=" + t?.localizedMessage)
+        loading.value = false
+    }
+
+    fun setResponseNextPage(storiesPage: UpcomingResult?) {
+        val storyList = mutableListOf<MovieResult>()
+
+        val list: List<MovieResult>? = mMovieList.value
+        list?.let { storyList.addAll(list) }
+        storiesPage?.results?.let { storyList.addAll(it) }
+
+        mMovieList.value = storyList
         loading.value = false
         mOriginalMovieList.clear()
         mOriginalMovieList.addAll(mMovieList.value ?: mutableListOf<MovieResult>())
@@ -130,7 +151,7 @@ class MovieListViewModel : ViewModel() {
             mOriginalMovieList
         else {
             mOriginalMovieList.filter {
-                it.title.contains(query)
+                it.title.contains(query, true)
             }
         }
 

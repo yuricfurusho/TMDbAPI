@@ -9,7 +9,7 @@ data class MovieResult(
     val backdropPath: String = "",
     @SerializedName("genre_ids")
     val genreIds: List<Int> = listOf(),
-    val id: Int = 0,
+    val id: Long = 0,
     @SerializedName("original_language")
     val originalLanguage: String = "",
     @SerializedName("original_title")
@@ -23,7 +23,7 @@ data class MovieResult(
     val title: String = "",
     val video: Boolean = false,
     @SerializedName("vote_average")
-    val voteAverage: Int = 0,
+    val voteAverage: Double = 0.0,
     @SerializedName("vote_count")
     val voteCount: Int = 0
 ) : Serializable

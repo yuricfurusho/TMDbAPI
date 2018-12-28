@@ -1,6 +1,7 @@
 package com.yuricfurusho.repository
 
 import android.util.Log
+import com.yuricfurusho.model.UpcomingResult
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -21,7 +22,7 @@ interface TMDbApi {
         @Query("api_key") api_key: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Observable<Any>
+    ): Observable<UpcomingResult>
 
     @GET("3/movie/{movie_id}")
     fun listMovieDetails(
