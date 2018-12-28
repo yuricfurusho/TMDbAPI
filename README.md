@@ -1,7 +1,7 @@
-# TMDbAPI
+# TMDbAPI Android App
 
 ## Summary
-Android App that lists upcoming movie from the TMDb API
+A simple android app that lists upcoming movies from the TMDb API and display its details.
 
 ## Architecture
 The app is built with MVVVM architecture and rxAndroid. It uses Retrofit Library for http requests and Glide Library for image downloading and display.
